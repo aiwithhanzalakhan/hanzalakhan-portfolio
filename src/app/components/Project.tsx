@@ -1,77 +1,131 @@
-// components/Projects.jsx
 "use client";
+
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { Tilt } from "react-tilt";
+import { useEffect, useState } from "react";
+import { client } from "@/app/lib/sanity";
+import { urlFor } from "@/app/lib/image";
 
-const projects = [
-  {
-    title: "E-Commerce Website",
-    description: "Responsive e-commerce site built with Next.js and Tailwind CSS.",
-    image: "/projects/ecommerce.jpg",
-    demo: "#",
-    github: "#",
-    tags: ["Next.js", "Tailwind", "React"],
-  },
-  {
-    title: "Portfolio Website",
-    description: "Modern portfolio showcasing projects and skills.",
-    image: "/projects/portfolio.jpg",
-    demo: "#",
-    github: "#",
-    tags: ["Next.js", "UI/UX", "Tailwind"],
-  },
-  {
-    title: "Crypto Price Tracker",
-    description: "Real-time crypto tracking dashboard using React & APIs.",
-    image: "/projects/crypto.jpg",
-    demo: "#",
-    github: "#",
-    tags: ["React", "API", "Chart.js"],
-  },
-];
+interface ProjectType {
+  title: string;
+  description: string;
+  image: any;
+  demo: string;
+  github: string;
+  tags: string[];
+}
 
-const Projects = () => {
+const container = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.15,
+    },
+  },
+};
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 40 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.7, ease: "easeOut" },
+  },
+};
+
+export default function Projects() {
+  const [projects, setProjects] = useState<ProjectType[]>([]);
+
+  // 🔹 Fetch from Sanity
+  useEffect(() => {
+    client
+      .fetch(
+        `*[_type == "project"] | order(_createdAt desc) {
+          title,
+          description,
+          image,
+          demo,
+          github,
+          tags
+        }`
+      )
+      .then(setProjects);
+  }, []);
+
   return (
-    <section id="projects" className="py-24 bg-gradient-to-b from-gray-50 to-white">
+    <section
+      id="projects"
+      className="relative py-28 bg-gradient-to-b from-gray-50 via-white to-indigo-50"
+    >
       <div className="max-w-7xl mx-auto px-6">
-        <h2 className="text-4xl md:text-5xl font-bold text-gray-800 text-center mb-16">
-          My Projects
-        </h2>
 
-        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
-          {projects.map((project, index) => (
-            <motion.div
-              key={project.title}
-              className="group relative rounded-3xl shadow-2xl overflow-hidden cursor-pointer"
-              initial={{ opacity: 0, y: 60 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: index * 0.2 }}
-            >
+        {/* Section Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="text-center mb-20"
+        >
+          <span className="text-sm uppercase tracking-widest font-semibold text-indigo-600">
+            Portfolio
+          </span>
+          <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mt-3">
+            Featured Projects
+          </h2>
+          <p className="mt-4 max-w-2xl mx-auto text-gray-600">
+            A curated selection of projects demonstrating clean UI,
+            smooth animations, and scalable frontend architecture.
+          </p>
+        </motion.div>
+
+        {/* Projects Grid */}
+        <motion.div
+          variants={container}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          className="grid gap-12 sm:grid-cols-2 lg:grid-cols-3"
+        >
+          {projects.map((project) => (
+            <motion.div key={project.title} variants={fadeUp}>
               <Tilt
-                options={{ max: 20, scale: 1.05, speed: 400 }}
-                className="relative w-full h-72 bg-white/20 backdrop-blur-lg border border-white/30 rounded-3xl shadow-lg"
+                options={{ max: 15, scale: 1.03, speed: 400 }}
+                className="group relative rounded-3xl overflow-hidden
+                bg-white/80 backdrop-blur
+                shadow-[0_30px_80px_-25px_rgba(0,0,0,0.35)]
+                border border-white/30"
               >
-                <div className="relative w-full h-full overflow-hidden rounded-3xl">
-                  {/* Project Image */}
+                {/* Image */}
+                <div className="relative h-72 w-full overflow-hidden">
                   <Image
-                    src={project.image}
+                    src={urlFor(project.image).url()}
                     alt={project.title}
                     fill
-                    className="object-cover w-full h-full transition-transform group-hover:scale-110 rounded-3xl"
+                    className="object-cover transition-transform duration-700 group-hover:scale-110"
                   />
 
-                  {/* Animated Gradient Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-6 rounded-3xl">
-                    <h3 className="text-2xl font-bold text-white mb-2">{project.title}</h3>
-                    <p className="text-sm text-gray-200 mb-4">{project.description}</p>
+                  {/* Overlay */}
+                  <div className="absolute inset-0 flex flex-col justify-end p-6
+                    bg-gradient-to-t from-black/80 via-black/40 to-transparent
+                    opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  >
+                    <h3 className="text-xl font-bold text-white mb-2">
+                      {project.title}
+                    </h3>
 
-                    {/* Tech Tags with Glow */}
+                    <p className="text-sm text-gray-200 mb-4 line-clamp-3">
+                      {project.description}
+                    </p>
+
+                    {/* Tags */}
                     <div className="flex flex-wrap gap-2 mb-4">
-                      {project.tags.map((tag) => (
+                      {project.tags?.map((tag) => (
                         <span
                           key={tag}
-                          className="text-xs px-2 py-1 rounded-full font-medium bg-gradient-to-r from-blue-400 to-purple-500 text-white shadow-[0_0_10px_rgba(0,0,0,0.3)]"
+                          className="text-xs px-3 py-1 rounded-full
+                          bg-indigo-600 text-white font-medium"
                         >
                           {tag}
                         </span>
@@ -79,34 +133,32 @@ const Projects = () => {
                     </div>
 
                     {/* Buttons */}
-                    <div className="flex gap-4">
+                    <div className="flex gap-3">
                       <a
                         href={project.demo}
                         target="_blank"
-                        className="px-4 py-2 bg-blue-600 rounded-lg text-white font-medium hover:bg-blue-700 transition"
+                        className="px-4 py-2 rounded-lg bg-indigo-600
+                        text-sm font-semibold text-white hover:bg-indigo-700 transition"
                       >
-                        Demo
+                        Live Demo
                       </a>
                       <a
                         href={project.github}
                         target="_blank"
-                        className="px-4 py-2 border-2 border-white rounded-lg font-medium hover:bg-white hover:text-black transition"
+                        className="px-4 py-2 rounded-lg border border-white
+                        text-sm font-semibold text-white
+                        hover:bg-white hover:text-gray-900 transition"
                       >
                         GitHub
                       </a>
                     </div>
                   </div>
-
-                  {/* Animated Border Glow on Hover */}
-                  <span className="absolute inset-0 rounded-3xl border-2 border-transparent group-hover:border-gradient-to-r from-blue-400 via-purple-500 to-pink-500 transition-all"></span>
                 </div>
               </Tilt>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
-};
-
-export default Projects;
+}

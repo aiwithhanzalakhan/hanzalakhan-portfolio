@@ -1,67 +1,254 @@
-// components/Hero.jsx
+// "use client";
+
+// import { motion, useScroll, useTransform } from "framer-motion";
+// import { TypeAnimation } from "react-type-animation";
+// import Image from "next/image";
+// import Particles from "react-tsparticles";
+// import { loadFull } from "tsparticles";
+// import { useCallback, useRef } from "react";
+
+// export default function Hero() {
+//   const heroRef = useRef(null);
+
+//   // Scroll animation
+//   const { scrollYProgress } = useScroll({
+//     target: heroRef,
+//     offset: ["start start", "end start"],
+//   });
+
+//   const opacity = useTransform(scrollYProgress, [0, 1], [1, 0]);
+//   const y = useTransform(scrollYProgress, [0, 1], [0, -120]);
+
+//   // Particles init
+//   const particlesInit = useCallback(async (engine: any) => {
+//     await loadFull(engine);
+//   }, []);
+
+//   return (
+//     <section
+//       ref={heroRef}
+//       className="relative min-h-screen flex items-center bg-gradient-to-br from-black via-gray-900 to-gray-800 text-white overflow-hidden"
+//     >
+//       {/* 🌌 PARTICLES BACKGROUND */}
+//       <Particles
+//         init={particlesInit}
+//         options={{
+//           fullScreen: false,
+//           particles: {
+//             number: { value: 60 },
+//             color: { value: "#6366f1" },
+//             opacity: { value: 0.3 },
+//             size: { value: 2 },
+//             move: { enable: true, speed: 0.6 },
+//           },
+//         }}
+//         className="absolute inset-0 -z-10"
+//       />
+
+//       <motion.div
+//         style={{ opacity, y }}
+//         className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-10 items-center"
+//       >
+//         {/* LEFT CONTENT */}
+//         <div>
+//           <h1 className="text-4xl md:text-6xl font-bold leading-tight">
+//             Hi, I’m <span className="text-indigo-400">Hanzala</span> 👋
+//           </h1>
+
+//           {/* ✨ TYPING ANIMATION */}
+//           <TypeAnimation
+//             sequence={[
+//               "Frontend Developer",
+//               2000,
+//               "Next.js Developer",
+//               2000,
+//               "React & Tailwind Specialist",
+//               2000,
+//             ]}
+//             speed={50}
+//             repeat={Infinity}
+//             className="block mt-4 text-2xl md:text-3xl font-semibold text-indigo-300"
+//           />
+
+//           {/* 🧠 ATS FRIENDLY TEXT */}
+//           <p className="mt-6 text-gray-300 text-lg max-w-xl">
+//             I build fast, responsive and scalable web applications using
+//             <span className="text-white font-medium">
+//               {" "}Next.js, React, Tailwind CSS and modern JavaScript
+//             </span>.
+//           </p>
+
+//           <div className="mt-8 flex gap-4">
+//             <motion.a
+//               whileHover={{ scale: 1.1 }}
+//               whileTap={{ scale: 0.95 }}
+//               href="#projects"
+//               className="px-6 py-3 bg-indigo-500 rounded-lg font-semibold"
+//             >
+//               View Projects
+//             </motion.a>
+
+//             <motion.a
+//               whileHover={{ scale: 1.1 }}
+//               whileTap={{ scale: 0.95 }}
+//               href="#contact"
+//               className="px-6 py-3 border border-white/30 rounded-lg"
+//             >
+//               Contact Me
+//             </motion.a>
+//           </div>
+//         </div>
+
+//         {/* RIGHT IMAGE */}
+//         <motion.div
+//           animate={{ y: [0, -15, 0] }}
+//           transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+//           className="flex justify-center"
+//         >
+//           <Image
+//             src="/picture/Imag3.jpeg"
+//             alt="Hanzala Frontend Developer"
+//             width={420}
+//             height={420}
+//             priority
+//             className="rounded-2xl shadow-2xl"
+//           />
+//         </motion.div>
+//       </motion.div>
+//     </section>
+//   );
+// }
 "use client";
+
+import { motion, useScroll, useTransform } from "framer-motion";
+import { TypeAnimation } from "react-type-animation";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import Particles from "react-tsparticles";
+import { loadFull } from "tsparticles";
 
-const Hero = () => {
+export default function Hero() {
+  const ref = useRef(null);
+
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end start"],
+  });
+
+  // Hero scroll effects
+  const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
+  const y = useTransform(scrollYProgress, [0, 0.6], [0, -140]);
+
   return (
-    <section className="relative w-full h-screen bg-gradient-to-b from-gray-50 to-white flex items-center">
-      <div className="max-w-7xl mx-auto px-6 flex flex-col-reverse md:flex-row items-center gap-12">
+    <section
+      ref={ref}
+      className="relative min-h-screen flex items-center bg-gradient-to-br from-black via-gray-900 to-gray-800 text-white overflow-hidden"
+    >
+      {/* PARTICLES */}
+      <Particles
+        init={async (engine: any) => await loadFull(engine)}
+        options={{
+          fullScreen: false,
+          particles: {
+            number: { value: 60 },
+            color: { value: "#6366f1" },
+            opacity: { value: 0.3 },
+            size: { value: 2 },
+            move: { enable: true, speed: 0.6 },
+          },
+        }}
+        className="absolute inset-0 -z-10"
+      />
 
-        {/* Text Section */}
-        <motion.div
-          className="flex-1 text-center md:text-left"
-          initial={{ opacity: 0, x: -50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          <h1 className="text-5xl md:text-6xl font-bold text-gray-800 mb-4 leading-tight">
-            Hi, I'm <span className="text-blue-600">Hanzala Khan</span>
+      <motion.div
+        style={{ opacity, y }}
+        className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-10 top-8! items-center"
+      >
+        {/* LEFT */}
+        <div>
+          <h1 className="text-4xl md:text-6xl  font-bold">
+            Hi, I’m <span className="text-indigo-400">Hanzala</span> 👋
           </h1>
-          <p className="text-gray-600 text-lg md:text-xl mb-6">
-            I’m a Front-End Developer & Designer specializing in building 
-            modern, responsive, and interactive web experiences.
-          </p>
-          <div className="flex justify-center md:justify-start gap-6">
-            <a
-              href="#projects"
-              className="px-6 py-3 bg-blue-600 text-white font-medium rounded-lg shadow-lg hover:bg-blue-700 transition"
-            >
-              View My Work
-            </a>
-            <a
-              href="#contact"
-              className="px-6 py-3 border-2 border-blue-600 text-blue-600 font-medium rounded-lg hover:bg-blue-50 transition"
-            >
-              Contact Me
-            </a>
-          </div>
-        </motion.div>
 
-        {/* Image Section */}
-        <motion.div
-          className="flex-1 relative w-full max-w-md md:max-w-lg"
-          initial={{ opacity: 0, x: 50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8 }}
+          <TypeAnimation
+            sequence={[
+              "Frontend Developer",
+              2000,
+              "Next.js Developer",
+              2000,
+              "React & Tailwind Specialist",
+              2000,
+            ]}
+            speed={50}
+            repeat={Infinity}
+            className="mt-4 block text-2xl md:text-3xl font-semibold text-indigo-300"
+          />
+
+          <p className="mt-6 text-gray-300 text-lg max-w-xl">
+            I build fast, responsive and scalable web applications using
+            <span className="text-white font-medium">
+              {" "}Next.js, React, Tailwind CSS & JavaScript
+            </span>.
+          </p>
+        </div>
+
+        {/* IMAGE */}
+        {/* <motion.div
+          animate={{ y: [0, -15, 0] }}
+          transition={{ repeat: Infinity, duration: 4 }}
+          className="flex justify-center"
         >
-          <div className="relative w-80 h-80 md:w-96 md:h-96 mx-auto md:mx-0 rounded-full overflow-hidden shadow-2xl border-4 border-blue-50 hover:scale-105 transition-transform">
+          <div className="relative w-[320px] h-[320px]">
             <Image
-              src="/profile.jpg" // Replace with your image
-              alt="Profile Image"
+              // src="/picture/Imag3.jpeg"
+              src="/unnamed.jpg"
+              alt="Hanzala Frontend Developer"
               fill
-              className="object-cover"
+              className="rounded-2xl shadow-2xl object-cover"
+              priority
             />
           </div>
-        </motion.div>
 
-      </div>
+        </motion.div> */}
+       <motion.div
+  animate={{ y: [0, -18, 0] }}
+  transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
+  className="flex justify-center"
+>
+  <div className="relative w-[340px] h-[340px]">
 
-      {/* Background Decorative Circles */}
-      <div className="absolute top-0 right-0 w-64 h-64 bg-blue-100 rounded-full opacity-20 -z-10"></div>
-      <div className="absolute bottom-0 left-0 w-72 h-72 bg-blue-200 rounded-full opacity-20 -z-10"></div>
+   
+    <motion.div
+      animate={{ rotate: 360 }}
+      transition={{ repeat: Infinity, duration: 10, ease: "linear" }}
+      className="absolute inset-0 rounded-full
+      bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500
+      blur-[1px]"
+    />
+
+    
+    <div className="absolute inset-[3px] rounded-full bg-black" />
+
+   
+    <div className="relative z-10 w-full h-full rounded-full overflow-hidden">
+      <Image
+        src="/unnamed.jpg"
+        alt="Hanzala Khan | Frontend Developer"
+        fill
+        priority
+        className="object-cover"
+      />
+    </div>
+
+   
+    <div className="absolute inset-0 rounded-full shadow-[0_0_60px_rgba(99,102,241,0.65)]" />
+
+  </div>
+</motion.div>
+
+
+
+      </motion.div>
     </section>
   );
-};
-
-export default Hero;
+}
