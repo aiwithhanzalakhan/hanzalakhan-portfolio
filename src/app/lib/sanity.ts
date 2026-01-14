@@ -7,3 +7,13 @@ export const client = createClient({
   apiVersion: "2024-01-01",
   useCdn: true,
 });
+
+// import { createClient } from "@sanity/client"
+// import { projectId, dataset, apiVersion } from "../"
+
+// export const client = createClient({
+//   projectId,
+//   dataset,
+//   apiVersion,
+//   useCdn: true,
+// })

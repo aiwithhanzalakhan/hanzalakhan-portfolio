@@ -25,14 +25,20 @@ const container = {
   },
 };
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 40 },
+import { easeInOut, Variants } from "framer-motion";
+
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 30 },
   show: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.7, ease: "easeOut" },
+    transition: {
+      duration: 0.6,
+      ease: easeInOut, 
+    },
   },
 };
+
 
 export default function Projects() {
   const [projects, setProjects] = useState<ProjectType[]>([]);

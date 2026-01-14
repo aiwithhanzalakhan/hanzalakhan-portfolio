@@ -401,6 +401,7 @@ export default function About() {
                 {skill}
               </motion.span>
             ))}
+            
           </motion.div>
         </motion.div>
       </div>
