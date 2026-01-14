@@ -21,6 +21,7 @@
     const input = document.getElementById("todo-input");
     const addBtn = document.getElementById("add-btn");
     const todoList = document.getElementById("todo-list");
+    let editItem = null;
     addBtn.addEventListener("click",()=>{
        const task =input.value.trim()
        if (!task) return;
@@ -28,8 +29,8 @@
         li.innerHTML=`
         <span>${task}</span>
         <div>
-          <button class="edit-btn">✏️</button>
-          <button class="delete-btn">❌</button>
+          <button class="edit-btn">Edit</button>
+          <button class="delete-btn">delete</button>
         </div>
         `    
         todoList.appendChild(li)
@@ -44,7 +45,16 @@
       if (e.target.classList.contains("delete-btn")) {
         li.remove();
       }
-
+      // else if (e.target.classList.contains("edit-btn")) {
+      //   // const span = ;
+      //   input.value= li.querySelector("span").textContent;
+      // }
+      else if (e.target.classList.contains("edit-btn")) {
+      input.value = li.querySelector("span").innerText; // value input me
+      editItem = li; // task save
+      addBtn.innerText = "Update";
+      input.focus();}
+    
     })
    
   </script>
