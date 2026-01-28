@@ -253,14 +253,13 @@
 //   );
 // }
 "use client";
-
 import { motion, useScroll, useTransform } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
 import Image from "next/image";
 import { useRef } from "react";
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
-
+import type { Engine } from "tsparticles-engine";
 export default function Hero() {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -276,24 +275,10 @@ export default function Hero() {
   return (
     <section
       ref={ref}
-      className="relative min-h-screen flex items-center bg-gradient-to-br from-black via-gray-900 to-gray-800 text-white overflow-hidden"
+      className="relative min-h-screen flex items-center pt-24 md:pt-0 bg-gradient-to-br from-black via-gray-900 to-gray-800 text-white overflow-hidden"
     >
       {/* PARTICLES */}
-      <Particles
-        init={async (engine) => await loadFull(engine)}
-        options={{
-          fullScreen: false,
-          particles: {
-            number: { value: 60 },
-            color: { value: "#6366f1" },
-            opacity: { value: 0.3 },
-            size: { value: 2 },
-            move: { enable: true, speed: 0.6 },
-          },
-        }}
-        className="absolute inset-0 -z-10"
-      />
-
+      <Particles init={async (engine:Engine) => await loadFull(engine)} options={{ fullScreen: false, particles: { number: { value: 60 }, color: { value: "#6366f1" }, opacity: { value: 0.3 }, size: { value: 2 }, move: { enable: true, speed: 0.6 }, }, }} className="absolute inset-0 -z-10" />
       <motion.div
         style={{ opacity, y }}
         className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-10 items-center"
@@ -301,7 +286,7 @@ export default function Hero() {
         {/* LEFT */}
         <div>
           <h1 className="text-4xl md:text-6xl font-bold">
-            Hi, I’m <span className="text-indigo-400">Hanzala</span> 👋
+            Hi, I’m <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-indigo-600">Hanzala</span> 👋
           </h1>
 
           <TypeAnimation
@@ -315,7 +300,7 @@ export default function Hero() {
             ]}
             speed={50}
             repeat={Infinity}
-            className="mt-4 block text-2xl md:text-3xl font-semibold text-indigo-300"
+            className="mt-4 block text-2xl md:text-3xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-indigo-600"
           />
 
           <p className="mt-6 text-gray-300 text-lg max-w-xl">
@@ -331,7 +316,7 @@ export default function Hero() {
           animate={{ y: [0, -18, 0] }}
           transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
           className="flex justify-center"
-        >
+               >
           <div className="relative w-[340px] h-[340px]">
             <motion.div
               animate={{ rotate: 360 }}

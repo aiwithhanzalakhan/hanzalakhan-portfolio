@@ -109,7 +109,7 @@ export default function Skills() {
           className="text-4xl md:text-5xl font-extrabold text-center mb-16"
         >
           My{" "}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-indigo-600">
             Skills
           </span>
         </motion.h2>
@@ -132,7 +132,7 @@ export default function Skills() {
               scale: 1.05,
               boxShadow: "0px 25px 50px rgba(0,0,0,0.25)",
             }}
-            className={`relative bg-black/5 ${skill.gradient}  border border-white/20 rounded-3xl p-8 shadow-xl transition-all duration-300`}
+            className={`relative bg-black/5 ${skill.gradient} text-white border border-white/20 rounded-3xl p-8 shadow-xl transition-all duration-300`}
           >
             {/* Icon */}
             <div className="mb-6 p-4 bg-white/10 rounded-xl w-fit backdrop-blur-md shadow-inner border border-white/20">
@@ -153,7 +153,7 @@ export default function Skills() {
                 <motion.span
                   key={tech}
                   whileHover={{ scale: 1.1, boxShadow: "0 4px 12px rgba(79,70,229,0.3)" }}
-                  className="text-xs bg-white border border-white/30 px-3 py-1 rounded-full text-black font-medium transition-all"
+                  className="text-sm bg-black/5 border border-white/30 px-3 py-1 rounded-full text-white font-medium transition-all"
                 >
                   {tech}
                 </motion.span>

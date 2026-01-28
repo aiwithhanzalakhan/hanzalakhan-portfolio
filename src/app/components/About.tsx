@@ -348,7 +348,7 @@ export default function About() {
         >
           <motion.span
             variants={fadeUp}
-            className="inline-block mb-4 text-sm font-semibold tracking-widest text-indigo-400 uppercase"
+            className="inline-block mb-4 text-sm font-semibold tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-indigo-600 uppercase"
           >
             About Me
           </motion.span>
@@ -359,7 +359,7 @@ export default function About() {
             text-white mb-6"
           >
             Frontend Developer <br />
-            <span className="text-indigo-400">Building Modern UI Experiences</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-indigo-600">Building Modern UI Experiences</span>
           </motion.h2>
 
           <motion.p
@@ -393,9 +393,9 @@ export default function About() {
                 }}
                 whileTap={{ scale: 0.96 }}
                 className="px-5 py-2 text-sm font-semibold rounded-full
-                bg-white/10 backdrop-blur
-                text-indigo-400
-                border border-indigo-600
+                bg-black/10 backdrop-blur
+                text-white
+                border border-indigo-00
                 transition-all cursor-default"
               >
                 {skill}

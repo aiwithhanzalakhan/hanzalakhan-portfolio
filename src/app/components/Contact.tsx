@@ -172,6 +172,8 @@ import { FC, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
+import type { Engine } from "tsparticles-engine";
+
 import { Mail, Phone, MapPin, Send, Github, Linkedin } from "lucide-react";
 import TypedJS from "typed.js";
 
@@ -246,7 +248,7 @@ const Contact: FC<ContactProps> = () => {
             <TypedText
               strings={[
                 "Let's Build Something Together",
-                '<span class="text-indigo-500">Frontend / Next.js / React Specialist</span>',
+                '<span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-indigo-600">Frontend / Next.js / React Specialist</span>',
               ]}
             />
           </h2>
@@ -264,7 +266,7 @@ const Contact: FC<ContactProps> = () => {
             initial={{ opacity: 0, x: -60 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7 }}
-            className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl shadow-xl p-10 flex flex-col justify-between"
+            className="bg-white/2 backdrop-blur-xl border border-white/20 rounded-3xl shadow-xl p-10 flex flex-col justify-between"
           >
             <div>
               <h3 className="text-3xl font-semibold mb-6 text-white">
@@ -276,27 +278,27 @@ const Contact: FC<ContactProps> = () => {
 
               <div className="space-y-6">
                 <div className="flex items-center gap-4">
-                  <Mail className="text-indigo-500 w-6 h-6" />
+                  <Mail className="text-indigo-600 w-6 h-6" />
                   <a
                     href="mailto:hanzalakhan6226@gmail.com"
-                    className="font-medium hover:text-indigo-500 transition"
+                    className="font-medium hover:text-indigo-600 transition"
                   >
                     hanzalakhan6226@gmail.com
                   </a>
                 </div>
 
                 <div className="flex items-center gap-4">
-                  <Phone className="text-indigo-500 w-6 h-6" />
+                  <Phone className="text-indigo-600 w-6 h-6" />
                   <a
                     href="tel:+923203066496"
-                    className="font-medium hover:text-indigo-500 transition"
+                    className="font-medium hover:text-indigo-600 transition"
                   >
                     032-03066496
                   </a>
                 </div>
 
                 <div className="flex items-center gap-4">
-                  <MapPin className="text-indigo-500 w-6 h-6" />
+                  <MapPin className="text-indigo-600 w-6 h-6" />
                   <span className="font-medium">Karachi, Pakistan</span>
                 </div>
               </div>
@@ -304,14 +306,14 @@ const Contact: FC<ContactProps> = () => {
 
             <div className="flex items-center gap-5 mt-10">
               <a
-                href="https://github.com/"
+                href="https://github.com/aiwithhanzalakhan"
                 target="_blank"
                 className="p-3 bg-white/20 hover:bg-white/30 rounded-full transition"
               >
                 <Github className="w-6 h-6 text-white" />
               </a>
               <a
-                href="https://github.com/aiwithhanzalakhan"
+                href="https://www.linkedin.com/in/hanzala-khan-dev/"
                 target="_blank"
                 className="p-3 bg-white/20 hover:bg-white/30 rounded-full transition"
               >
@@ -325,7 +327,7 @@ const Contact: FC<ContactProps> = () => {
             initial={{ opacity: 0, x: 60 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7 }}
-            className="bg-white/10 backdrop-blur-2xl border border-white/20 rounded-3xl shadow-2xl p-10"
+            className="bg-white/2 backdrop-blur-2xl border border-white/20 rounded-3xl shadow-2xl p-10"
           >
             <div className="grid gap-6">
               <div>
@@ -336,7 +338,7 @@ const Contact: FC<ContactProps> = () => {
                   id="name"
                   type="text"
                   placeholder="Enter your name"
-                  className="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 text-white focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  className="w-full px-4 py-3 rounded-xl bg-black/20 border border-white/30 text-white focus:outline-none focus:ring-2 focus:ring-blue-400"
                 />
               </div>
 
@@ -348,7 +350,7 @@ const Contact: FC<ContactProps> = () => {
                   id="email"
                   type="email"
                   placeholder="Enter your email"
-                  className="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 text-white focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  className="w-full px-4 py-3 rounded-xl bg-black/20 border border-white/30 text-white focus:outline-none focus:ring-2 focus:ring-blue-400"
                 />
               </div>
 
@@ -360,7 +362,7 @@ const Contact: FC<ContactProps> = () => {
                   id="message"
                   rows={5}
                   placeholder="Tell me more about your project..."
-                  className="w-full px-4 py-3 rounded-xl bg-white/20 border border-white/30 text-white focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  className="w-full px-4 py-3 rounded-xl bg-black/20 border border-white/30 text-white focus:outline-none focus:ring-2 focus:ring-blue-400"
                 ></textarea>
               </div>
 
@@ -368,7 +370,7 @@ const Contact: FC<ContactProps> = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.97 }}
                 type="submit"
-                className="flex items-center justify-center gap-2 bg-indigo-500 text-white font-semibold py-3 px-6 rounded-xl shadow-lg hover:bg-indigo-900 transition-all"
+                className="flex items-center justify-center gap-2 bg-indigo-700 text-white font-semibold py-3 px-6 rounded-xl shadow-lg hover:bg-indigo-900 transition-all"
               >
                 <Send className="w-5 h-5" />
                 Send Message
