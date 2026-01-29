@@ -37,7 +37,6 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        
         if (!credentials?.username || !credentials?.password) {
           return null;
         }
@@ -47,9 +46,9 @@ export const authOptions: NextAuthOptions = {
           credentials.password === process.env.ADMIN_PASS
         ) {
           return {
-            id: "admin",        
+            id: "admin",
             name: credentials.username,
-          };;
+          };
         }
 
         return null;
