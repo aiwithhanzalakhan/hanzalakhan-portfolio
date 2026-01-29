@@ -286,7 +286,7 @@ export default function Hero() {
         {/* LEFT */}
         <div>
           <h1 className="text-4xl md:text-6xl font-bold">
-            Hi, I’m <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-indigo-600">Hanzala</span> 👋
+            Hi,I&apos;m <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-indigo-600">Hanzala</span> 👋
           </h1>
 
           <TypeAnimation

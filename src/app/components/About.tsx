@@ -366,7 +366,7 @@ export default function About() {
             variants={fadeUp}
             className="text-lg text-gray-300 leading-relaxed mb-8 max-w-xl"
           >
-            I'm <span className="font-semibold text-white">Hanzala Khan</span>, a frontend-focused developer
+           I&apos;m <span className="font-semibold text-white">Hanzala Khan</span>, a frontend-focused developer
             creating fast, responsive, and visually appealing web interfaces using
             Next.js, React, and Tailwind CSS. I focus on performance, accessibility, and modern design.
           </motion.p>
