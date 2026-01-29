@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
 import { Code, Layout, Cloud, Palette, Zap } from "lucide-react";
-
+import { Variants } from "framer-motion";
 const skills = [
   {
     title: "Frontend Development",
@@ -58,7 +58,7 @@ const container = {
   },
 };
 
-const fadeUp = {
+const fadeUp:Variants = {
   hidden: { opacity: 0, y: 40 },
   show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } },
 };

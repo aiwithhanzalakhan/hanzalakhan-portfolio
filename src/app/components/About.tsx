@@ -274,7 +274,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-
+import { Variants } from "framer-motion";
 const skills = [
   "React",
   "Next.js",
@@ -294,11 +294,19 @@ const container = {
   },
 };
 
-const fadeUp = {
+const fadeUp:Variants = {
   hidden: { opacity: 0, y: 32 },
   show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } },
 };
-
+const variants = {
+  active: {
+      backgroundColor: "#f00"
+  },
+  inactive: {
+    backgroundColor: "#fff",
+    transition: { duration: 2 }
+  }
+}
 export default function About() {
   return (
     <section
@@ -346,6 +354,7 @@ export default function About() {
           viewport={{ once: true }}
           className="text-center md:text-left"
         >
+         
           <motion.span
             variants={fadeUp}
             className="inline-block mb-4 text-sm font-semibold tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-indigo-600 uppercase"
