@@ -338,7 +338,7 @@ const Contact: FC<ContactProps> = () => {
                   id="name"
                   type="text"
                   placeholder="Enter your name"
-                  className="w-full px-4 py-3 rounded-xl bg-black/20 border border-white/30 text-white focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  className="w-full px-4 py-3 rounded-xl bg-black/20 border border-white/30 text-white focus:outline-none focus:ring-2 focus:ring-blue-900"
                 />
               </div>
 
@@ -350,7 +350,7 @@ const Contact: FC<ContactProps> = () => {
                   id="email"
                   type="email"
                   placeholder="Enter your email"
-                  className="w-full px-4 py-3 rounded-xl bg-black/20 border border-white/30 text-white focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  className="w-full px-4 py-3 rounded-xl bg-black/20 border border-white/30 text-white focus:outline-none focus:ring-2 focus:ring-blue-900"
                 />
               </div>
 
@@ -362,7 +362,7 @@ const Contact: FC<ContactProps> = () => {
                   id="message"
                   rows={5}
                   placeholder="Tell me more about your project..."
-                  className="w-full px-4 py-3 rounded-xl bg-black/20 border border-white/30 text-white focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  className="w-full px-4 py-3 rounded-xl bg-black/20 border border-white/30 text-white focus:outline-none focus:ring-2 focus:ring-blue-900"
                 ></textarea>
               </div>
 
