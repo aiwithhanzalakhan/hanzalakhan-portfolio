@@ -302,7 +302,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-/* 👇 YAHAN paste karo */
+
 const uploadToCloudinary = async (file: File) => {
   const data = new FormData();
   data.append("file", file);
@@ -461,11 +461,7 @@ export default function AdminDashboard() {
             className="md:col-span-2 rounded-lg border border-white/10 bg-[#020617] p-3 text-gray-200 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-600"
           />
 
-          {/* <input
-            type="file"
-            accept="image/*"
-            onChange={(e) => setImageFile(e.target.files?.[0] || null)}
-          /> */}
+         
           <div className="md:col-span-2">
             <label className="block mb-2 text-sm font-medium text-gray-300">
               Project Image
