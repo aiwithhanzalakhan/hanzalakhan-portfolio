@@ -177,7 +177,7 @@ import type { Engine } from "tsparticles-engine";
 import { Mail, Phone, MapPin, Send, Github, Linkedin } from "lucide-react";
 import TypedJS from "typed.js";
 
-interface ContactProps {}
+interface ContactProps { }
 
 const TypedText: FC<{ strings: string[] }> = ({ strings }) => {
   const el = useRef<HTMLSpanElement>(null);
@@ -260,14 +260,19 @@ const Contact: FC<ContactProps> = () => {
         </motion.div>
 
         {/* Contact Grid */}
-        <div className="grid md:grid-cols-2 gap-14">
+        <div className="grid gap-10 md:grid-cols-2 px-4 sm:px-6 md:px-0 max-w-6xl mx-auto">
           {/* Left Info Card */}
           <motion.div
             initial={{ opacity: 0, x: -60 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7 }}
-            className="bg-white/2 backdrop-blur-xl border border-white/20 rounded-3xl shadow-xl p-10 flex flex-col justify-between"
+            className="w-full bg-white/5 backdrop-blur-xl border border-white/20 rounded-2xl md:rounded-3xl
+    shadow-xl
+    p-6 sm:p-8 md:p-10
+    flex flex-col justify-between
+  "
           >
+
             <div>
               <h3 className="text-3xl font-semibold mb-6 text-white">
                 Contact Information
@@ -324,11 +329,19 @@ const Contact: FC<ContactProps> = () => {
 
           {/* Right Contact Form */}
           <motion.form
-            initial={{ opacity: 0, x: 60 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7 }}
-            className="bg-white/2 backdrop-blur-2xl border border-white/20 rounded-3xl shadow-2xl p-10"
-          >
+  initial={{ opacity: 0, x: 60 }}
+  whileInView={{ opacity: 1, x: 0 }}
+  transition={{ duration: 0.7 }}
+  className="
+    w-full
+    bg-white/5 backdrop-blur-2xl
+    border border-white/20
+    rounded-2xl md:rounded-3xl
+    shadow-2xl
+    p-6 sm:p-8 md:p-10
+  "
+>
+
             <div className="grid gap-6">
               <div>
                 <label htmlFor="name" className="block font-medium mb-2">

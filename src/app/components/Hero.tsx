@@ -278,7 +278,7 @@ export default function Hero() {
       className="relative min-h-screen flex items-center pt-24 md:pt-0 bg-gradient-to-br from-black via-gray-900 to-gray-800 text-white overflow-hidden"
     >
       {/* PARTICLES */}
-      <Particles init={async (engine:Engine) => await loadFull(engine)} options={{ fullScreen: false, particles: { number: { value: 60 }, color: { value: "#6366f1" }, opacity: { value: 0.3 }, size: { value: 2 }, move: { enable: true, speed: 0.6 }, }, }} className="absolute inset-0 -z-10" />
+      <Particles init={async (engine:Engine) => await loadFull(engine)} options={{ fullScreen: false, particles: { number: { value: 60 }, color: { value: "#6366f1" }, opacity: { value: 0.5 }, size: { value: 1 }, move: { enable: true, speed: 0.6 }, }, }} className="absolute inset-0 -z-10" />
       <motion.div
         style={{ opacity, y }}
         className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-10 items-center"
