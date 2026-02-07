@@ -118,7 +118,7 @@
 //   { name: "Projects", href: "/#projects" },
 //   { name: "Skills", href: "/#skills" },
 //   { name: "Contact", href: "/#contact" }
-  
+
 
 // ];
 
@@ -279,15 +279,59 @@ export default function Navbar() {
           <FiMenu size={28} />
         </button>
       </div>
+      {/* <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 bg-[#020617]  md:hidden flex flex-col"
+          >
+            
+            <button
+              aria-label="Close Menu"
+              onClick={() => setIsOpen(false)}
+              className="absolute top-6 right-6 text-white"
+            >
+              <FiX size={30} />
+            </button>
 
-      {/* MOBILE MENU (FULL SCREEN) */}
+         
+            <motion.ul
+              initial={{ y: 50, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: 50, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="flex-1 flex flex-col items-center justify-center gap-10"
+            >
+              {navLinks.map((link) => (
+                <li key={link.name}>
+                  <Link
+                    href={link.href}
+                    onClick={() => setIsOpen(false)}
+                    className="text-3xl font-semibold text-gray-200 hover:text-indigo-400 transition"
+                  >
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </motion.ul>
+          </motion.div>
+        )}
+      </AnimatePresence> */}
+
+
+
+
+
+
       <AnimatePresence>
         {isOpen && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-[#020617]/95 backdrop-blur-xl md:hidden"
+            className="fixed inset-0 z-50 bg-black/95 backdrop-blur-xl md:hidden flex flex-col"
           >
             {/* CLOSE BUTTON */}
             <button
@@ -300,6 +344,59 @@ export default function Navbar() {
 
             {/* LINKS */}
             <motion.ul
+              initial={{ y: 50, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: 50, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="
+    flex-1 flex flex-col items-center justify-center gap-8
+    p-10
+    max-w-xs
+    w-full
+    mx-auto
+    bg-gradient-to-br from-gray-900 via-black to-gray-800
+    rounded-2xl
+    shadow-2xl
+    border border-white/10
+  "
+            >
+              {navLinks.map((link) => (
+                <li key={link.name} className="w-full text-center">
+                  <Link
+                    href={link.href}
+                    onClick={() => setIsOpen(false)}
+                    className="block w-full text-2xl font-semibold text-gray-200 hover:text-indigo-400 transition py-2 px-2"
+                  >
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </motion.ul>
+
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+
+      {/* <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-[#020617]/95 backdrop-blur-xl md:hidden"
+          >
+            {/* CLOSE BUTTON */}
+      {/* <button
+              aria-label="Close Menu"
+              onClick={() => setIsOpen(false)}
+              className="absolute top-6 right-6 text-white"
+            >
+              <FiX size={30} />
+            </button> */}
+
+      {/* LINKS */}
+      {/* <motion.ul
               initial={{ y: 40, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: 40, opacity: 0 }}
@@ -319,8 +416,8 @@ export default function Navbar() {
               ))}
             </motion.ul>
           </motion.div>
-        )}
-      </AnimatePresence>
+        )} */}
+      {/* </AnimatePresence>  */}
     </motion.nav>
   );
 }

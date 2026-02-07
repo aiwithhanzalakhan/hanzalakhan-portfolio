@@ -9,24 +9,24 @@
 
 //   const handleSubmit = async (e: React.FormEvent) => {
 //     e.preventDefault();
-  
+
 //     const res = await fetch("/api/projects", {
 //       method: "POST",
 //       headers: { "Content-Type": "application/json" },
 //       body: JSON.stringify({ title, description, imageUrl, link }),
 //     });
-  
+
 //     const data = await res.json();
-  
+
 //     if (!res.ok) {
 //       console.error(data);
 //       alert("Error adding project");
 //       return;
 //     }
-  
+
 //     alert("Project added!");
 //   };
-  
+
 
 //   return (
 //     <div className="max-w-xl mx-auto p-4">
@@ -302,9 +302,31 @@
 "use client";
 
 import { useEffect, useState } from "react";
+/* 👇 YAHAN paste karo */
+const uploadToCloudinary = async (file: File) => {
+  const data = new FormData();
+  data.append("file", file);
+  data.append("upload_preset", "project_upload");
+
+  const res = await fetch(
+    "https://api.cloudinary.com/v1_1/dbe5z8h8z/image/upload",
+    {
+      method: "POST",
+      body: data,
+    }
+  );
+
+  if (!res.ok) {
+    throw new Error("Cloudinary upload failed");
+  }
+
+  const result = await res.json();
+  return result.secure_url;
+};
 
 export default function AdminDashboard() {
   const [projects, setProjects] = useState<any[]>([]);
+
   const [form, setForm] = useState({
     title: "",
     description: "",
@@ -312,24 +334,76 @@ export default function AdminDashboard() {
     link: "",
   });
   const [editId, setEditId] = useState<string | null>(null);
+  const [imageFile, setImageFile] = useState<File | null>(null);
 
+  // const fetchProjects = async () => {
+  //   const res = await fetch("/api/projects/admin");
+  //   setProjects(await res.json());
+  // };
   const fetchProjects = async () => {
     const res = await fetch("/api/projects/admin");
-    setProjects(await res.json());
+
+    if (!res.ok) {
+      console.error("Failed to fetch projects");
+      return;
+    }
+
+    const text = await res.text();
+
+    if (!text) {
+      setProjects([]);
+      return;
+    }
+
+    setProjects(JSON.parse(text));
   };
 
   useEffect(() => {
     fetchProjects();
   }, []);
 
+  // const submitHandler = async () => {
+  //   let finalImageUrl = form.imageUrl;
+
+  //   // if (imageFile) {
+  //   //   finalImageUrl = await uploadToCloudinary(imageFile);
+  //   // }
+
+
+
+  //   await fetch("/api/projects", {
+  //     method: editId ? "PUT" : "POST",
+  //     headers: { "Content-Type": "application/json" },
+  //     // body: JSON.stringify(editId ? { id: editId, ...form } : form),
+  //     body: JSON.stringify({
+  //       ...form,
+  //       imageUrl: finalImageUrl,
+  //     }),
+  //   });
+
+  //   setForm({ title: "", description: "", imageUrl: "", link: "" });
+
+  //   setEditId(null);
+  //   fetchProjects();
+  // };
   const submitHandler = async () => {
+    let finalImageUrl = form.imageUrl;
+
+    if (imageFile) {
+      finalImageUrl = await uploadToCloudinary(imageFile);
+    }
+
     await fetch("/api/projects", {
       method: editId ? "PUT" : "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(editId ? { id: editId, ...form } : form),
+      body: JSON.stringify({
+        ...form,
+        imageUrl: finalImageUrl,
+      }),
     });
 
     setForm({ title: "", description: "", imageUrl: "", link: "" });
+    setImageFile(null);
     setEditId(null);
     fetchProjects();
   };
@@ -387,6 +461,59 @@ export default function AdminDashboard() {
             className="md:col-span-2 rounded-lg border border-white/10 bg-[#020617] p-3 text-gray-200 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-600"
           />
 
+          {/* <input
+            type="file"
+            accept="image/*"
+            onChange={(e) => setImageFile(e.target.files?.[0] || null)}
+          /> */}
+          <div className="md:col-span-2">
+            <label className="block mb-2 text-sm font-medium text-gray-300">
+              Project Image
+            </label>
+
+            <div className="relative flex items-center justify-center 
+                  rounded-xl border-2 border-dashed border-white/20 
+                  bg-[#020617] p-6 text-center 
+                  transition hover:border-indigo-500 hover:bg-indigo-500/5">
+
+              <input
+                type="file"
+                accept="image/*"
+                onChange={(e) => setImageFile(e.target.files?.[0] || null)}
+                className="absolute inset-0 cursor-pointer opacity-0"
+              />
+
+              <div className="flex flex-col items-center gap-2">
+                <svg
+                  className="h-8 w-8 text-indigo-400"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M3 16.5V8.25A2.25 2.25 0 015.25 6h3.879a2.25 2.25 0 001.59-.659l.662-.662A2.25 2.25 0 0113.561 4.5h5.189A2.25 2.25 0 0121 6.75V16.5M3 16.5A2.25 2.25 0 005.25 18.75h13.5A2.25 2.25 0 0021 16.5M3 16.5l4.5-4.5m0 0L12 16.5m-4.5-4.5l4.5-4.5"
+                  />
+                </svg>
+
+                <p className="text-sm text-gray-300">
+                  Click to upload or drag & drop
+                </p>
+
+                <p className="text-xs text-gray-500">
+                  PNG, JPG, WEBP
+                </p>
+              </div>
+            </div>
+          </div>
+          {imageFile && (
+            <p className="mt-2 text-sm text-green-400">
+              Selected: {imageFile.name}
+            </p>
+          )}
+
           <textarea
             placeholder="Description"
             value={form.description}
@@ -419,11 +546,10 @@ export default function AdminDashboard() {
               </h2>
 
               <span
-                className={`rounded-full px-3 py-1 text-xs font-semibold ${
-                  p.isHidden
-                    ? "bg-red-500/20 text-red-400"
-                    : "bg-green-500/20 text-green-400"
-                }`}
+                className={`rounded-full px-3 py-1 text-xs font-semibold ${p.isHidden
+                  ? "bg-red-500/20 text-red-400"
+                  : "bg-green-500/20 text-green-400"
+                  }`}
               >
                 {p.isHidden ? "Hidden" : "Visible"}
               </span>
@@ -457,11 +583,10 @@ export default function AdminDashboard() {
               </button>
 
               <button
-                className={`rounded-md px-3 py-1 text-sm font-semibold text-white ${
-                  p.isHidden
-                    ? "bg-green-600 hover:bg-green-700"
-                    : "bg-yellow-600 hover:bg-yellow-700"
-                }`}
+                className={`rounded-md px-3 py-1 text-sm font-semibold text-white ${p.isHidden
+                  ? "bg-green-600 hover:bg-green-700"
+                  : "bg-yellow-600 hover:bg-yellow-700"
+                  }`}
                 onClick={() => toggleVisibility(p._id, !p.isHidden)}
               >
                 {p.isHidden ? "Show" : "Hide"}
@@ -473,3 +598,66 @@ export default function AdminDashboard() {
     </div>
   );
 }
+
+
+
+
+
+
+
+
+
+
+// "use client";
+
+// import { useEffect, useState } from "react";
+
+// const uploadToCloudinary = async (file: File) => {
+//   const data = new FormData();
+//   data.append("file", file);
+//   data.append("upload_preset", "project_upload");
+
+//   const res = await fetch(
+//     "https://api.cloudinary.com/v1_1/dbe5z8h8z/image/upload",
+//     {
+//       method: "POST",
+//       body: data,
+//     }
+//   );
+
+//   if (!res.ok) {
+//     const text = await res.text();
+//     console.error(text);
+//     throw new Error("Cloudinary upload failed");
+//   }
+
+//   const result = await res.json();
+//   return result.secure_url;
+// };
+
+// export default function AdminDashboard() {
+//   const [imageFile, setImageFile] = useState<File | null>(null);
+
+//   const testUpload = async () => {
+//     if (!imageFile) return alert("Select image first");
+//     const url = await uploadToCloudinary(imageFile);
+//     alert(url);
+//   };
+
+//   return (
+//     <div className="p-10">
+//       <input
+//         type="file"
+//         accept="image/*"
+//         onChange={(e) => setImageFile(e.target.files?.[0] || null)}
+//       />
+
+//       <button
+//         onClick={testUpload}
+//         className="mt-4 rounded bg-indigo-600 px-6 py-3 text-white"
+//       >
+//         TEST CLOUDINARY UPLOAD
+//       </button>
+//     </div>
+//   );
+// }
