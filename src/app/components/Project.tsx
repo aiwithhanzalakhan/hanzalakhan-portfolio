@@ -231,147 +231,147 @@ export default function Home() {
     //     </div>
     //   ))}
     // </div>
-  //   <section className="bg-[#0b0f19] py-16 px-4">
-  //   <div className="max-w-6xl mx-auto">
-  //     <h1 className="text-3xl md:text-4xl font-bold text-white mb-10 text-center">
-  //       My Projects
-  //     </h1>
+    //   <section className="bg-[#0b0f19] py-16 px-4">
+    //   <div className="max-w-6xl mx-auto">
+    //     <h1 className="text-3xl md:text-4xl font-bold text-white mb-10 text-center">
+    //       My Projects
+    //     </h1>
 
-  //     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-  //       {projects.map((project) => (
-  //         <div
-  //           key={project._id}
-  //           className="group bg-[#111827] border border-white/10 rounded-2xl overflow-hidden 
-  //                      shadow-lg hover:shadow-cyan-500/20 transition-all duration-300"
-  //         >
-  //           {/* IMAGE */}
-  //           <div className="relative overflow-hidden">
-  //             <img
-  //               src={project.imageUrl}
-  //               alt={project.title}
-  //               className="w-full h-52 object-cover transform 
-  //                          group-hover:scale-110 transition duration-500"
-  //             />
+    //     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    //       {projects.map((project) => (
+    //         <div
+    //           key={project._id}
+    //           className="group bg-[#111827] border border-white/10 rounded-2xl overflow-hidden 
+    //                      shadow-lg hover:shadow-cyan-500/20 transition-all duration-300"
+    //         >
+    //           {/* IMAGE */}
+    //           <div className="relative overflow-hidden">
+    //             <img
+    //               src={project.imageUrl}
+    //               alt={project.title}
+    //               className="w-full h-52 object-cover transform 
+    //                          group-hover:scale-110 transition duration-500"
+    //             />
 
-  //             {/* OVERLAY */}
-  //             <div
-  //               className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent 
-  //                          opacity-0 group-hover:opacity-100 transition"
-  //             />
-  //           </div>
+    //             {/* OVERLAY */}
+    //             <div
+    //               className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent 
+    //                          opacity-0 group-hover:opacity-100 transition"
+    //             />
+    //           </div>
 
-  //           {/* CONTENT */}
-  //           <div className="p-6">
-  //             <h2 className="text-xl font-semibold text-white mb-2">
-  //               {project.title}
-  //             </h2>
+    //           {/* CONTENT */}
+    //           <div className="p-6">
+    //             <h2 className="text-xl font-semibold text-white mb-2">
+    //               {project.title}
+    //             </h2>
 
-  //             <p className="text-gray-400 text-sm leading-relaxed mb-4">
-  //               {project.description}
-  //             </p>
+    //             <p className="text-gray-400 text-sm leading-relaxed mb-4">
+    //               {project.description}
+    //             </p>
 
-  //             {project.link && (
-  //               <a
-  //                 href={project.link}
-  //                 target="_blank"
-  //                 className="inline-flex items-center gap-2 text-sm font-medium
-  //                            text-cyan-400 hover:text-cyan-300 transition"
-  //               >
-  //                 View Project
-  //                 <span className="group-hover:translate-x-1 transition">→</span>
-  //               </a>
-  //             )}
-  //           </div>
-  //         </div>
-  //       ))}
-  //     </div>
-  //   </div>
-  // </section>
-  <section
-  id="projects"
-  className="relative py-24 overflow-hidden bg-gradient-to-br 
+    //             {project.link && (
+    //               <a
+    //                 href={project.link}
+    //                 target="_blank"
+    //                 className="inline-flex items-center gap-2 text-sm font-medium
+    //                            text-cyan-400 hover:text-cyan-300 transition"
+    //               >
+    //                 View Project
+    //                 <span className="group-hover:translate-x-1 transition">→</span>
+    //               </a>
+    //             )}
+    //           </div>
+    //         </div>
+    //       ))}
+    //     </div>
+    //   </div>
+    // </section>
+    <section
+      id="projects"
+      className="relative py-24 overflow-hidden bg-gradient-to-br 
              from-gray-900 via-gray-800 to-indigo-900 text-white"
->
-  <div className="relative z-10 max-w-7xl mx-auto px-6">
-
-    {/* Heading */}
-    <motion.h2
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8 }}
-      className="text-4xl md:text-5xl font-extrabold text-center mb-16"
     >
-      My{" "}
-      <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-indigo-600">
-        Projects
-      </span>
-    </motion.h2>
+      <div className="relative z-10 max-w-7xl mx-auto px-6">
 
-    {/* Cards */}
-    <motion.div
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: true }}
-      className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10"
-    >
-      {projects.map((project) => (
-        <motion.div
-          key={project._id}
-          initial={{ opacity: 0, y: 40 }}
+        {/* Heading */}
+        <motion.h2
+          initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
-          whileHover={{
-            rotateX: 5,
-            rotateY: -5,
-            scale: 1.05,
-            boxShadow: "0px 25px 50px rgba(79,70,229,0.35)",
-          }}
-          transition={{ duration: 0.4 }}
-          className="group relative bg-black/10 backdrop-blur-xl 
+          transition={{ duration: 0.8 }}
+          className="text-4xl md:text-5xl font-extrabold text-center mb-16"
+        >
+          My{" "}
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-indigo-600">
+            Projects
+          </span>
+        </motion.h2>
+
+        {/* Cards */}
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10"
+        >
+          {projects.map((project) => (
+            <motion.div
+              key={project._id}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              whileHover={{
+                rotateX: 5,
+                rotateY: -5,
+                scale: 1.05,
+                boxShadow: "0px 25px 50px rgba(79,70,229,0.35)",
+              }}
+              transition={{ duration: 0.4 }}
+              className="group relative bg-black/10 backdrop-blur-xl 
                      border border-white/20 rounded-3xl 
                      overflow-hidden shadow-xl"
-        >
-          {/* Image */}
-          <div className="relative overflow-hidden">
-            <img
-              src={project.imageUrl}
-              alt={project.title}
-              className="w-full h-full object-cover 
+            >
+              {/* Image */}
+              <div className="relative overflow-hidden">
+                <img
+                  src={project.imageUrl}
+                  alt={project.title}
+                  className="w-full h-full object-cover 
                          group-hover:scale-110 transition duration-700"
-            />
+                />
 
-            {/* Gradient overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t 
+                {/* Gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t 
                             from-black/80 via-black/30 to-transparent 
                             opacity-0 group-hover:opacity-100 transition" />
-          </div>
+              </div>
 
-          {/* Content */}
-          <div className="p-7">
-            <h3 className="text-xl font-semibold mb-2 text-white">
-              {project.title}
-            </h3>
+              {/* Content */}
+              <div className="p-7">
+                <h3 className="text-xl font-semibold mb-2 text-white">
+                  {project.title}
+                </h3>
 
-            <p className="text-gray-300 text-sm mb-5 leading-relaxed">
-              {project.description}
-            </p>
+                <p className="text-gray-300 text-sm mb-5 leading-relaxed">
+                  {project.description}
+                </p>
 
-            {project.link && (
-              <a
-                href={project.link}
-                target="_blank"
-                className="inline-flex items-center gap-2 
+                {project.link && (
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    className="inline-flex items-center gap-2 
                            text-sm font-medium text-indigo-400 
                            hover:text-indigo-300 transition"
-              >
-                View Project
-                <span className="group-hover:translate-x-1 transition">→</span>
-              </a>
-            )}
-          </div>
+                  >
+                    View Project
+                    <span className="group-hover:translate-x-1 transition">→</span>
+                  </a>
+                )}
+              </div>
+            </motion.div>
+          ))}
         </motion.div>
-      ))}
-    </motion.div>
-  </div>
-</section>
+      </div>
+    </section>
   );
 }

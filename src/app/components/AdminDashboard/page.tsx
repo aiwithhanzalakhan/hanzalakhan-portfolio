@@ -335,6 +335,7 @@ export default function AdminDashboard() {
   });
   const [editId, setEditId] = useState<string | null>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imageMode, setImageMode] = useState<"url" | "upload">("url");
 
   // const fetchProjects = async () => {
   //   const res = await fetch("/api/projects/admin");
@@ -362,37 +363,26 @@ export default function AdminDashboard() {
     fetchProjects();
   }, []);
 
-  // const submitHandler = async () => {
-  //   let finalImageUrl = form.imageUrl;
 
-  //   // if (imageFile) {
-  //   //   finalImageUrl = await uploadToCloudinary(imageFile);
-  //   // }
-
-
-
-  //   await fetch("/api/projects", {
-  //     method: editId ? "PUT" : "POST",
-  //     headers: { "Content-Type": "application/json" },
-  //     // body: JSON.stringify(editId ? { id: editId, ...form } : form),
-  //     body: JSON.stringify({
-  //       ...form,
-  //       imageUrl: finalImageUrl,
-  //     }),
-  //   });
-
-  //   setForm({ title: "", description: "", imageUrl: "", link: "" });
-
-  //   setEditId(null);
-  //   fetchProjects();
-  // };
   const submitHandler = async () => {
-    let finalImageUrl = form.imageUrl;
-
-    if (imageFile) {
+    let finalImageUrl = "";
+  
+    if (imageMode === "upload") {
+      if (!imageFile) {
+        alert("Please select an image file");
+        return;
+      }
       finalImageUrl = await uploadToCloudinary(imageFile);
     }
-
+  
+    if (imageMode === "url") {
+      if (!form.imageUrl.trim()) {
+        alert("Please enter image URL");
+        return;
+      }
+      finalImageUrl = form.imageUrl;
+    }
+  
     await fetch("/api/projects", {
       method: editId ? "PUT" : "POST",
       headers: { "Content-Type": "application/json" },
@@ -401,13 +391,14 @@ export default function AdminDashboard() {
         imageUrl: finalImageUrl,
       }),
     });
-
+  
     setForm({ title: "", description: "", imageUrl: "", link: "" });
     setImageFile(null);
+    setImageMode("url");
     setEditId(null);
     fetchProjects();
   };
-
+  
   const deleteProject = async (id: string) => {
     await fetch("/api/projects", {
       method: "DELETE",
@@ -454,15 +445,37 @@ export default function AdminDashboard() {
             className="rounded-lg border border-white/10 bg-[#020617] p-3 text-gray-200 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-600"
           />
 
-          <input
-            placeholder="Image URL"
-            value={form.imageUrl}
-            onChange={(e) => setForm({ ...form, imageUrl: e.target.value })}
-            className="md:col-span-2 rounded-lg border border-white/10 bg-[#020617] p-3 text-gray-200 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-600"
-          />
-
-         
+          
           <div className="md:col-span-2">
+            <label className="mb-2 block text-sm font-medium text-gray-300">
+              Image Source
+            </label>
+
+            <select
+              value={imageMode}
+              onChange={(e) => {
+                const value = e.target.value as "url" | "upload";
+                setImageMode(value);
+                setImageFile(null);
+                setForm({ ...form, imageUrl: "" });
+              }}
+              className="w-full rounded-lg border border-white/10 bg-[#020617] p-3 text-gray-200 focus:outline-none focus:ring-2 focus:ring-indigo-600"
+            >
+              <option value="url">Image URL</option>
+              <option value="upload">Upload Image</option>
+            </select>
+          </div>
+          {imageMode === "url" && (
+            <input
+              placeholder="Image URL"
+              value={form.imageUrl}
+              onChange={(e) => setForm({ ...form, imageUrl: e.target.value })}
+              className="md:col-span-2 rounded-lg border border-white/10 bg-[#020617] p-3 text-gray-200 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-600"
+            />
+          )}
+
+
+          {/* <div className="md:col-span-2">
             <label className="block mb-2 text-sm font-medium text-gray-300">
               Project Image
             </label>
@@ -505,10 +518,56 @@ export default function AdminDashboard() {
             </div>
           </div>
           {imageFile && (
-            <p className="mt-2 text-sm text-green-400">
+            <p className="mt-2 text-sm text-indigo-500">
               Selected: {imageFile.name}
             </p>
+          )} */}
+          {imageMode === "upload" && (
+            <div className="md:col-span-2">
+              <label className="block mb-2 text-sm font-medium text-gray-300">
+                Project Image
+              </label>
+
+              <div className="relative flex items-center justify-center rounded-xl border-2 border-dashed border-white/20 bg-[#020617] p-6 text-center transition hover:border-indigo-500 hover:bg-indigo-500/5">
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => setImageFile(e.target.files?.[0] || null)}
+                  className="absolute inset-0 cursor-pointer opacity-0"
+                />
+
+                <div className="flex flex-col items-center gap-2">
+                  <svg
+                    className="h-8 w-8 text-indigo-400"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M3 16.5V8.25A2.25 2.25 0 015.25 6h3.879a2.25 2.25 0 001.59-.659l.662-.662A2.25 2.25 0 0113.561 4.5h5.189A2.25 2.25 0 0121 6.75V16.5"
+                    />
+                  </svg>
+
+                  <p className="text-sm text-gray-300">
+                    Click to upload or drag & drop
+                  </p>
+
+                  <p className="text-xs text-gray-500">PNG, JPG, WEBP</p>
+                </div>
+              </div>
+
+              {imageFile && (
+                <p className="mt-2 text-sm text-indigo-500">
+                  Selected: {imageFile.name}
+                </p>
+              )}
+            </div>
           )}
+
+
 
           <textarea
             placeholder="Description"
